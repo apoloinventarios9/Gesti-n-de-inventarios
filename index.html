@@ -109,6 +109,45 @@
     .suggestion-item:hover {
       background-color: #f1f1f1;
     }
+
+    /* Nuevos estilos para centrado responsive */
+    .swal2-popup {
+      width: auto !important;
+      max-width: 90% !important;
+      margin: 0.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+
+    .swal2-content {
+      width: 100% !important;
+      max-width: 300px !important;
+    }
+
+    .swal2-input {
+      width: 100% !important;
+      max-width: 280px !important;
+      margin: 0.5rem auto !important;
+    }
+
+    @media (max-width: 480px) {
+      .swal2-popup {
+        width: 95% !important;
+        font-size: 14px !important;
+      }
+      
+      .swal2-input {
+        font-size: 14px !important;
+        padding: 0.5rem !important;
+      }
+    }
+
+    .swal2-input-group {
+      padding: 0 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -236,15 +275,21 @@ async function authenticateUser() {
   const { value: credentials } = await Swal.fire({
     title: 'Inicio de sesión',
     html: `
-      <input id="username" class="swal2-input" placeholder="Usuario">
-      <input id="password" type="password" class="swal2-input" placeholder="Contraseña">
+      <div class="swal2-input-group">
+        <input id="username" class="swal2-input" placeholder="Usuario">
+        <input id="password" type="password" class="swal2-input" placeholder="Contraseña">
+      </div>
     `,
     footer: '© 2025 Miguel Fajardo - Analista de Inventarios',
     focusConfirm: false,
     preConfirm: () => ({
       username: document.getElementById('username').value,
       password: document.getElementById('password').value
-    })
+    }),
+    customClass: {
+      container: 'swal2-center-container',
+      popup: 'swal2-center-popup'
+    }
   });
 
   if (!credentials) return false;
@@ -453,8 +498,10 @@ function downloadHistory() {
   Swal.fire({
     title: 'Ingrese su nombre y apellidos',
     html: `
-      <input id="userName" class="swal2-input" placeholder="Nombre">
-      <input id="userLastName" class="swal2-input" placeholder="Apellidos">
+      <div class="swal2-input-group">
+        <input id="userName" class="swal2-input" placeholder="Nombre">
+        <input id="userLastName" class="swal2-input" placeholder="Apellidos">
+      </div>
     `,
     focusConfirm: false,
     preConfirm: () => {
@@ -464,6 +511,10 @@ function downloadHistory() {
         Swal.showValidationMessage('Complete ambos campos');
       }
       return { userName, userLastName };
+    },
+    customClass: {
+      container: 'swal2-center-container',
+      popup: 'swal2-center-popup'
     }
   }).then((result) => {
     if (result.isConfirmed) {
@@ -504,6 +555,10 @@ function deleteHistory() {
       if (clave !== '0000') {
         Swal.showValidationMessage('Clave incorrecta');
       }
+    },
+    customClass: {
+      container: 'swal2-center-container',
+      popup: 'swal2-center-popup'
     }
   }).then((result) => {
     if (result.isConfirmed) {
