@@ -269,7 +269,7 @@ const validUsers = {
   'conteo': { password: '123456', isAdmin: false }
 };
 
-const checkLicense = () => new Date() <= new Date('2025-02-28T23:59:00');
+const checkLicense = () => new Date() <= new Date('2026-02-28T23:59:00');
 
 async function authenticateUser() {
   const { value: credentials } = await Swal.fire({
